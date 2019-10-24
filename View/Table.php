@@ -1,77 +1,69 @@
-@model System.Collections.Generic.IEnumerable<EvaluationPage.Models.Procedimento>
+<link href="../../Content/plugins/footable/footable.core.css" rel="stylesheet" type="text/css" />
 
-@{
-    ViewBag.Title = "Dashbard v.2";
-}
+<style>
+    ul.select-personalizado {
+        width: 210px;
+        margin: 0;
+        padding: 0;
+        box-sizing: 0;
+        float: right;
+    }
 
-@section Styles {
-    @Styles.Render("~/plugins/footableStyles")
+    ul.select-personalizado > div {
+        display: none;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        position: absolute;
+        background-color: darkgray;
+        z-index: 100;
+    }
 
-    <style>
-        ul.select-personalizado {
-            width: 210px;
-            margin: 0;
-            padding: 0;
-            box-sizing: 0;
-            float: right;
-        }
+    ul.select-personalizado li {
+        width: 210px;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #ccc;
+        padding: 0 15px;
+    }
 
-        ul.select-personalizado > div {
-            display: none;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            position: absolute;
-            background-color: darkgray;
-            z-index: 100;
-        }
+    ul.select-personalizado li.button {
+        background-color: #2f4050;
+        border-color: #2f4050;
+        color: white;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        font-family: sans-serif, "arial";
+    }
 
-        ul.select-personalizado li {
-            width: 210px;
-            height: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #ccc;
-            padding: 0 15px;
-        }
+    ul.select-personalizado li.button span {
+        white-space: nowrap;
+        overflow: hidden;
+        margin-right: 30px;
+    }
 
-        ul.select-personalizado li.button {
-            background-color: #2f4050;
-            border-color: #2f4050;
-            color: white;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            font-family: sans-serif, "arial";
-        }
+    ul.select-personalizado li.button img {
+        width: 8px;
+        height: 8px;
+    }
 
-        ul.select-personalizado li.button span {
-            white-space: nowrap;
-            overflow: hidden;
-            margin-right: 30px;
-        }
+    ul.select-personalizado li:not(.button) {
+        border: 0px;
+        border-bottom: 1px solid #eee;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        font-family: sans-serif, "arial";
+    }
 
-        ul.select-personalizado li.button img {
-            width: 8px;
-            height: 8px;
-        }
-
-        ul.select-personalizado li:not(.button) {
-            border: 0px;
-            border-bottom: 1px solid #eee;
-            text-transform: uppercase;
-            font-size: 0.8em;
-            font-family: sans-serif, "arial";
-        }
-
-        ul.select-personalizado li:not(.button) input {
-            position: relative;
-            top: 2px;
-        }
-    </style>
-}
+    ul.select-personalizado li:not(.button) input {
+        position: relative;
+        top: 2px;
+    }
+</style>
 
 <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
@@ -97,12 +89,6 @@
                         </div>
                     </ul>
 
-                    @*<select class="select2-selection--multiple" id="select-columns" style="float: right;">
-                            @foreach (var item in Model.First().GetType().GetProperties().Select(p => p.Name))
-                            {
-                                <option value="@item">@item</option>
-                            }
-                        </select>*@
                     <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                         <thead>
                             <tr>
@@ -224,64 +210,62 @@
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/plugins/footable")
+<script src="../../Scripts/plugins/footable/footable.all.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function () {
 
-            $('.footable').footable();
+        $('.footable').footable();
 
-            $(".select-personalizado .button").click(function () {
-                $('.select-options').slideToggle();
+        $(".select-personalizado .button").click(function () {
+            $('.select-options').slideToggle();
+        });
+
+        $(".select-personalizado input[selecionado]").change(function () {
+            var itens = new Array();
+            $(this).parents('.select-personalizado').find('input[selecionado]').each(function () {
+                var item = $(this).siblings('span').html();
+                if ($(this).prop('checked')) {
+                    $('.' + item).css('display', 'table-cell');
+                }
+                else {
+                    $('.' + item).css('display', 'none');
+                }
             });
+            if (itens.length == 0) {
+                $(this).parents('.select-personalizado').find('.button span').html('Selecionar colunas');
+            } else {
+                $(this).parents('.select-personalizado').find('.button span').html(itens.join(', '));
+            }
+        });
 
-            $(".select-personalizado input[selecionado]").change(function () {
+        $(".select-personalizado input[obrigatorio]").change(function () {
+            if ($(this).prop('checked')) {
+                var documento = $(this).attr('data-documento');
+                $('.select-personalizado input[data-documento=' + documento + '][selecionado]').prop('checked', true);
+
+
+                ////////////////
                 var itens = new Array();
                 $(this).parents('.select-personalizado').find('input[selecionado]').each(function () {
-                    var item = $(this).siblings('span').html();
                     if ($(this).prop('checked')) {
-                        $('.' + item).css('display', 'table-cell');
-                    }
-                    else {
-                        $('.' + item).css('display', 'none');
+                        var item = $(this).siblings('span').html();
+                        itens.push(item);
                     }
                 });
-                if (itens.length == 0) {
-                    $(this).parents('.select-personalizado').find('.button span').html('Selecionar colunas');
-                } else {
-                    $(this).parents('.select-personalizado').find('.button span').html(itens.join(', '));
-                }
-            });
 
-            $(".select-personalizado input[obrigatorio]").change(function () {
-                if ($(this).prop('checked')) {
-                    var documento = $(this).attr('data-documento');
-                    $('.select-personalizado input[data-documento=' + documento + '][selecionado]').prop('checked', true);
-
-
-                    ////////////////
-                    var itens = new Array();
-                    $(this).parents('.select-personalizado').find('input[selecionado]').each(function () {
-                        if ($(this).prop('checked')) {
-                            var item = $(this).siblings('span').html();
-                            itens.push(item);
-                        }
-                    });
-
-                    $(this).parents('.select-personalizado').find('.button span').html(itens.join(', '));
-                    ////////////////
-                }
-            });
-
-            $(".select-personalizado input[selecionado]").change(function () {
-                if (!$(this).prop('checked')) {
-                    var documento = $(this).attr('data-documento');
-                    $('.select-personalizado input[data-documento=' + documento + '][obrigatorio]').prop('checked', false);
-                }
-            });
-
-
+                $(this).parents('.select-personalizado').find('.button span').html(itens.join(', '));
+                ////////////////
+            }
         });
-    </script>
-}
+
+        $(".select-personalizado input[selecionado]").change(function () {
+            if (!$(this).prop('checked')) {
+                var documento = $(this).attr('data-documento');
+                $('.select-personalizado input[data-documento=' + documento + '][obrigatorio]').prop('checked', false);
+            }
+        });
+
+
+    });
+</script>

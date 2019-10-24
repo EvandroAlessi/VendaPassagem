@@ -1,5 +1,7 @@
-<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+<link href="../../Content/plugins/summernote/summernote.css" rel="stylesheet" type="text/css" />
+<link href="../../Content/plugins/summernote/summernote-bs3.css" rel="stylesheet" type="text/css" />
 
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
         <div class="col-lg-12">
             <div class="tabs-container">
@@ -27,20 +29,10 @@
     </div>
 </div>
 
+<script src="../../Scripts/plugins/summernote/summernote.min.js"></script>
 
-@section Styles {
-    @Styles.Render("~/plugins/summernoteStyles")
-}
-
-@section Scripts {
-    @Scripts.Render("~/plugins/summernote")
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('.summernote').summernote();
-
-        });
-
-    </script>
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>

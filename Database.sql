@@ -2,6 +2,12 @@ CREATE DATABASE VendaPassagem;
 
 USE VendaPassagem;
 
+CREATE TABLE IF NOT EXISTS Usuario(
+	Nome varchar(126) NOT NULL,
+	Email Varchar(126) NOT NULL,
+    Senha Varchar(126) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS Destino (
 	ID INT NOT NULL auto_increment,
 	NomeAeroporto VARCHAR(126) NOT NULL,

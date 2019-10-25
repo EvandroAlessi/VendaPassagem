@@ -1,6 +1,7 @@
 <?php 
-    require_once('Context.php');
-    require('C:\xampp\htdocs\VendaPassagem\Models\Aeronave.php');
+    use VendaPassagem\DAO\Context;
+    use VendaPassagem\Models\Aeronave;
+    use PDO;
 
     class AeronaveDAO {
         public function popularAeronave($row){
@@ -40,13 +41,13 @@
             try {
                 $sql = "SELECT * FROM Aeronave WHERE ID = ${id};";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function inserir(Aeronave $aeronave) {
+        public function inserir($aeronave) {
             $context = new Context();
 
             try {
@@ -62,26 +63,25 @@
                         :qtdAssentos,
                         :qtdAssentosEspecial
                     )";
-       
-                $sql->bindValue(":destinoID", $aeronave->getDestinoID());
-                $sql->bindValue(":modelo", $aeronave->getModelo());
-                $sql->bindValue(":qtdAssentos", $aeronave->getQtdAssentos());
-                $sql->bindValue(":qtdAssentosEspecial", $aeronave->getQtdAssentosEspecial());
-       
-       
-                return $context->execute($sql);
+                    
+                return $context->execute($sql, array(
+                    "destinoID", $aeronave->getDestinoID(),
+                    "modelo", $aeronave->getModelo(),
+                    "qtdAssentos", $aeronave->getQtdAssentos(),
+                    "qtdAssentosEspecial", $aeronave->getQtdAssentosEspecial()
+                ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function editar(Aeronave $aeronave){
+        public function editar($aeronave){
             $context = new Context();
 
              try {
                 $sql = "UPDATE Aeronave SET DestinoID = ". $aeronave->getDestinoID() .", Modelo = ". $aeronave->getModelo() .", QndAssentos = ". $aeronave->getQndAssentos() .", QndAssentosEspecial = ". $aeronave->getQndAssentosEspecial() ." WHERE ID = ". $aeronave->getID() .";";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -93,7 +93,7 @@
             try {
                 $sql = "DELETE FROM Aeronave WHERE ID = ${id}";
 
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

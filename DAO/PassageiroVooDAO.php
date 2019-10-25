@@ -1,6 +1,7 @@
 <?php 
-    require_once('Context.php');
-    require('C:\xampp\htdocs\VendaPassagem\Models\PassageiroVoo.php');
+    use VendaPassagem\DAO\Context;
+    use VendaPassagem\Models\PassageiroVoo;
+    use PDO;
 
     class PassageiroVooDAO {
         public function popularPassageiroVoo($row){
@@ -8,6 +9,7 @@
                 $row['VooID'],
                 $row['PassageiroID'],
                 $row['Solicitacoes'],
+                $row['NumAssento'],
                 $row['TipoAssento'],
                 $row['FormaPagamento'],
                 $row['ValorPagamento']
@@ -41,13 +43,13 @@
             try {
                 $sql = "SELECT * FROM PassageiroVoo WHERE ID = ${id};";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function inserir(PassageiroVoo $passageiroVoo) {
+        public function inserir($passageiroVoo) {
             $context = new Context();
 
             try {
@@ -55,6 +57,7 @@
                         VooID,
                         PassageiroID,
                         Solicitacoes,
+                        NumAssento,
                         TipoAssento,
                         FormaPagamento,
                         ValorPagamento
@@ -63,31 +66,34 @@
                         :vooID,
                         :passageiroID,
                         :solicitacoes,
+                        :numAssento,
                         :tipoAssento,
                         :formaPagamento,
                         :valorPagamento
                     )";
        
-                $sql->bindValue(":vooID", $passageiroVoo->getVooID());
-                $sql->bindValue(":passageiroID", $passageiroVoo->getPassageiroID());
-                $sql->bindValue(":solicitacoes", $passageiroVoo->getSolicitacoes());
-                $sql->bindValue(":tipoAssento", $passageiroVoo->getTipoAssento());
-                $sql->bindValue(":formaPagamento", $passageiroVoo->getFormaPagamento());
-                $sql->bindValue(":valorPagamento", $passageiroVoo->getValorPagamento());
        
-                return $context->execute($sql);
+                return $context->execute($sql, array(
+                    "vooID", $passageiroVoo->getVooID(),
+                    "passageiroID", $passageiroVoo->getPassageiroID(),
+                    "solicitacoes", $passageiroVoo->getSolicitacoes(),
+                    "numAssento", $passageiroVoo->getTipoAssento(),
+                    "tipoAssento", $passageiroVoo->getTipoAssento(),
+                    "formaPagamento", $passageiroVoo->getFormaPagamento(),
+                    "valorPagamento", $passageiroVoo->getValorPagamento()
+                ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function editar(PassageiroVoo $passageiroVoo){
+        public function editar($passageiroVoo){
             $context = new Context();
 
              try {
                 $sql = "UPDATE PassageiroVoo SET VooID = ". $passageiroVoo->getVooID() .", PassageiroID = ". $passageiroVoo->getPassageiroID() .", Solicitacoes = ". $passageiroVoo->getSolicitacoes() .", TipoAssento = ". $passageiroVoo->getTipoAssento() .", FormaPagamento = ". $passageiroVoo->getFormaPagamento() .", ValorPagamento = ". $passageiroVoo->getValorPagamento() ." WHERE ID = ". $passageiroVoo->getID() .";";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -99,7 +105,7 @@
             try {
                 $sql = "DELETE FROM PassageiroVoo WHERE ID = ${id}";
 
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

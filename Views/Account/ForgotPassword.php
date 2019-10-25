@@ -7,11 +7,11 @@
 
     <title>VOo | Login</title>
 
-    <link href="../../Content/bootstrap.min.css" rel="stylesheet">
-    <link href="../../Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="../../Content/animate.css" rel="stylesheet">
-    <link href="../../Content/style.css" rel="stylesheet">
+    <link href="Content/animate.css" rel="stylesheet">
+    <link href="Content/style.css" rel="stylesheet">
 
 </head>
 
@@ -32,12 +32,12 @@
                     <div class="row">
 
                         <div class="col-lg-12">
-                            <form class="m-t" role="form" action="index.html">
+                            <form class="m-t" role="form">
                                 <div class="form-group">
                                     <input type="email" class="form-control" placeholder="Email address" required="">
                                 </div>
 
-                                <button type="submit" class="btn btn-primary block full-width m-b">Enviar nova senha</button>
+                                <button type="button" class="btn btn-primary block full-width m-b">Enviar nova senha</button>
 
                             </form>
                         </div>

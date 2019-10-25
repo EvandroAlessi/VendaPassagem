@@ -1,11 +1,15 @@
 <?php 
-    require_once('Context.php');
-    require('C:\xampp\htdocs\VendaPassagem\Models\Voo.php');
+    namespace VendaPassagem\DAO;
+
+    use VendaPassagem\DAO\Context;
+    use VendaPassagem\Models\Voo;
+    use PDO;
 
     class VooDAO {
         public function popularVoo($row){
             $voo = new Voo(
                 $row['ID'],
+                $row['AeronaveID'],
                 $row['DataPartida'],
                 $row['ValorPassagem']
             );
@@ -38,42 +42,44 @@
             try {
                 $sql = "SELECT * FROM Voo WHERE ID = ${id};";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function inserir(Voo $voo) {
+        public function inserir($voo) {
             $context = new Context();
 
             try {
-                $sql = "INSERT INTO Voo (    
+                $sql = "INSERT INTO Voo ( 
+                        AeronaveID,   
                         DataPartida,
                         ValorPassagem
                     )
                     VALUES (
+                        :aeronaveID,
                         :dataPartida,
                         :valorPassagem
                     )";
        
-                $sql->bindValue(":dataPartida", $voo->getDataPartida());
-                $sql->bindValue(":valorPassagem", $voo->getValorPassagem());
-       
-       
-                return $context->execute($sql);
+                return $context->execute($sql, array(
+                    'dataPartida' => $voo['DataPartida'],
+                    'valorPassagem' => $voo['ValorPassagem'],
+                    'aeronaveID' => $voo['AeronaveID']
+                ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function editar(Voo $voo){
+        public function editar($voo){
             $context = new Context();
 
              try {
                 $sql = "UPDATE Voo SET DataPartida = ". $voo->getDataPartida() .", ValorPassagem = ". $voo->getValorPassagem() ." WHERE ID = ". $voo->getID() .";";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -85,7 +91,7 @@
             try {
                 $sql = "DELETE FROM Voo WHERE ID = ${id}";
 
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

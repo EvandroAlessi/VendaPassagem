@@ -1,9 +1,12 @@
 <?php 
-    interface Pagamento {
-        private $CARTAO_CREDITO;
-        private $DINHEIRO;
-        private $BOLETO;
-        private $DEPOSITO;
-        private $CONVENIO;
-    }
+
+namespace VendaPassagem\Models;
+
+interface Pagamento {
+    const CARTAO_CREDITO = 1;
+    const DINHEIRO = 2;
+    const BOLETO = 3;
+    const DEPOSITO = 4;
+    const CONVENIO = 5;
+}
 ?>

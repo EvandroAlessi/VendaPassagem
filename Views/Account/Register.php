@@ -7,11 +7,11 @@
 
     <title>VOo | Registrar</title>
 
-    <link href="../../Content/bootstrap.min.css" rel="stylesheet">
-    <link href="../../Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="../../Content/animate.css" rel="stylesheet">
-    <link href="../../Content/style.css" rel="stylesheet">
+    <link href="Content/animate.css" rel="stylesheet">
+    <link href="Content/style.css" rel="stylesheet">
 
 </head>
 
@@ -23,15 +23,15 @@
             </div>
             <h3>Criar conta no VOo</h3>
             <p>Crie uma conta para ter acesso.</p>
-            <form class="m-t" role="form" action="#">
+            <form class="m-t" role="form" action="register" method="POST">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" required="">
+                    <input type="text" class="form-control" placeholder="Name" name="name" required="">
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Email" required="">
+                    <input type="email" class="form-control" placeholder="Email" name="username" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
+                    <input type="password" class="form-control" placeholder="Password" name="password" required="">
                 </div>
                 <div class="form-group">
                     <div class="checkbox"><label> <input type="checkbox"><i></i> Concordo com os termos e politicas de privacidade </label></div>

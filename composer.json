@@ -1,0 +1,16 @@
+{
+    "name": "vendor/venda-passagem",
+    "description": "Sistema de venda de passagens aereas",
+    "authors": [
+        {
+            "name": "EvandroAlessi",
+            "email": "evandroalessics@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    }
+}

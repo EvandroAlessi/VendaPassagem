@@ -1,6 +1,7 @@
 <?php 
-    require_once('Context.php');
-    require('C:\xampp\htdocs\VendaPassagem\Models\Passageiro.php');
+    use VendaPassagem\DAO\Context;
+    use VendaPassagem\Models\Passageiro;
+    use PDO;
 
     class PassageiroDAO {
         public function popularPassageiro($row){
@@ -40,7 +41,7 @@
             try {
                 $sql = "SELECT * FROM Passageiro WHERE ID = ${id};";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -63,24 +64,24 @@
                         :dataNascimento
                     )";
        
-                $sql->bindValue(":cpf", $passageiro->getCPF());
-                $sql->bindValue(":rg", $passageiro->getRG());
-                $sql->bindValue(":nome", $passageiro->getNome());
-                $sql->bindValue(":dataNascimento", $passageiro->getDataNascimento());
-       
-                return $context->execute($sql);
+                return $context->execute($sql, array(
+                    "cpf", $passageiro->getCPF(),
+                    "rg", $passageiro->getRG(),
+                    "nome", $passageiro->getNome(),
+                    "dataNascimento", $passageiro->getDataNascimento()
+                ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function editar(Passageiro $passageiro){
+        public function editar($passageiro){
             $context = new Context();
 
              try {
                 $sql = "UPDATE Passageiro SET CPF = ". $passageiro->getCPF() .", RG = ". $passageiro->getRG() .", Nome = ". $passageiro->getNome() .", DataNascimento = ". $passageiro->getDataNascimento() ." WHERE ID = ". $passageiro->getID() .";";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -92,7 +93,7 @@
             try {
                 $sql = "DELETE FROM Passageiro WHERE ID = ${id}";
 
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

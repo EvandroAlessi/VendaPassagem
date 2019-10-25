@@ -1,19 +1,35 @@
 <?php
 
-namespace Controllers;
+namespace VendaPassagem\Controllers;
 
-use Core\Controller;
+use VendaPassagem\Core\Controller;
+use VendaPassagem\DAO\AeronaveDAO;
+use VendaPassagem\Models\Aeronave;
 
 class AeronaveController extends Controller {
-    
-    function IndexAction(){
-        $arenave = new Arenave();
-        $dados["arenaves"] = $arenave->listClientes();
-        $this->result("arenaves", "list", $dados);
+    function indexAction(){
+        $dao = new AeronaveDAO();
+
+        $dados['aeronaves'] = $dao->buscarTodos();
+
+        $this->result("Voo", "Index", $dados);
     }
-    
-    
-    
-}
+
+    function detailsAction(){
+        
+    }
+
+    function createAction(){
+
+    }
+
+    function editAction(){
+
+    }
+
+    function deleteAction(){
+
+    }
+} 
 
 ?>

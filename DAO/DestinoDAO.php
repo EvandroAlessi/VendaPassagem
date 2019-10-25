@@ -1,6 +1,7 @@
 <?php 
-    require_once('Context.php');
-    require('C:\xampp\htdocs\VendaPassagem\Models\Destino.php');
+    use VendaPassagem\DAO\Context;
+    use VendaPassagem\Models\Destino;
+    use PDO;
 
     class DestinoDAO {
         public function popularDestino($row){
@@ -38,13 +39,13 @@
             try {
                 $sql = "SELECT * FROM Destino WHERE ID = ${id};";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function inserir(Destino $destino) {
+        public function inserir($destino) {
             $context = new Context();
 
             try {
@@ -56,23 +57,23 @@
                         :nomeAeroporto,
                         :taxaEmbarque
                     )";
-       
-                $sql->bindValue(":nomeAeroporto", $destino->getNomeAeroporto());
-                $sql->bindValue(":taxaEmbarque", $destino->getTaxaEmbarque());
-       
-                return $context->execute($sql);
+                    
+                return $context->execute($sql, array(
+                    "nomeAeroporto", $destino->getNomeAeroporto(),
+                    "taxaEmbarque", $destino->getTaxaEmbarque()
+                ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
         }
 
-        public function editar(Destino $destino){
+        public function editar($destino){
             $context = new Context();
 
              try {
                 $sql = "UPDATE Destino SET NomeAeroporto = ". $destino->getNomeAeroporto() .", TaxaEmbarque = ". $destino->getTaxaEmbarque() ." WHERE ID = ". $destino->getID() .";";
        
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -84,7 +85,7 @@
             try {
                 $sql = "DELETE FROM Destino WHERE ID = ${id}";
 
-                return $context->execute($sql);
+                return $context->execute($sql, null);
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

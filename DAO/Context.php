@@ -1,4 +1,8 @@
 <?php
+    namespace VendaPassagem\DAO;
+    
+    use PDO;
+
     class Context {
         public static $instance;
     
@@ -21,15 +25,23 @@
             return self::$instance;
         }
 
-        public static function execute($sql){
+        public static function execute($sql, $data){
             $p_sql = self::getConnection()->prepare($sql);
 
+            if (!empty($data)) 
+                foreach ($data as $key => $value)
+                    $p_sql->bindValue(":" . $key, $value);
+                
+            
+   
             return $p_sql->execute();
         }
 
         public static function query($sql){
             return self::getConnection()->query($sql);
         }
+
+
 
         // public function insert($class) {            
         //     $keys = [];

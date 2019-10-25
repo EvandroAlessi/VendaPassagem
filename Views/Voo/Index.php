@@ -30,10 +30,11 @@
                                     </td>
                                     
                                     <td style="float: right;">
-                                        <a href="voos/edit/<?=$voo->getID()?>" data-toggle="modal" data-target="#modalAlterar" style="padding: 3px;"><i class="fa fa-pencil text-navy"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#modalEditar<?=$voo->getID()?>" style="padding: 3px;"><i class="fa fa-pencil text-navy"></i></a>
                                         <a href="voos/delete/<?=$voo->getID()?>" style="padding: 3px;"><i class="fa fa-trash text-danger"></i></a>
                                     </td>
                                 </tr>
+
                             <?php } ?>
                         </tbody>
                         <tfoot>
@@ -49,6 +50,47 @@
         </div>
     </div>
 </div>
+
+
+<?php foreach ($voos as $voo) { ?>
+
+<div class="modal" id="modalEditar<?=$voo->getID()?>" tabindex="-1" role="dialog" aria-labelledby="labelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModal">Editar Voo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form id="formAdicionar<?=$voo->getID()?>" action="voos/edit/<?=$voo->getID()?>" method="POST">
+                        <div class="form-group">
+                            <label for="inputAddTitulo">Data Partida</label>
+                            <input type="text" class="form-control" id="dataPartida" name="dataPartida" value="<?=$voo->getDataPartida()?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddTitulo">Valor Passagem</label>
+                            <input type="text" class="form-control" id="valorPassagem" name="valorPassagem" value="<?=$voo->getValorPassagem()?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddTitulo">Aeronave</label>
+                                <select  class="form-control" name="aeronaveID" value="<?=$voo->getAeronaveID()?>">                
+                                <?php foreach($aeronaves as $aeronave){?>
+                                    <option value="<?=$aeronave->getID();?>" <?=$voo->getAeronaveID() == $aeronave->getID()?'selected':''?>><?=$aeronave->getModelo()?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="adicionar btn btn-primary bg-dark border-dark">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php } ?>
 
 <div class="modal" id="modalAdicionar" tabindex="-1" role="dialog" aria-labelledby="labelModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -69,6 +111,14 @@
                         <div class="form-group">
                             <label for="inputAddTitulo">Valor Passagem</label>
                             <input type="text" class="form-control" id="valorPassagem" name="valorPassagem">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddTitulo">Aeronave</label>
+                            <select  class="form-control" name="aeronaveID">
+                                <?php foreach($aeronaves as $aeronave){?>
+                                <option value="<?=$aeronave->getID();?>"><?=$aeronave->getModelo()?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <button type="submit" class="adicionar btn btn-primary bg-dark border-dark">Salvar</button>
                     </form>

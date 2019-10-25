@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit7695cd76f82104699a9d57924b5b3dd4
 {
     public static $classMap = array (
-        'AeronaveDAO' => __DIR__ . '/../..' . '/DAO/AeronaveDAO.php',
         'ComposerAutoloaderInit7695cd76f82104699a9d57924b5b3dd4' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit7695cd76f82104699a9d57924b5b3dd4' => __DIR__ . '/..' . '/composer/autoload_static.php',
@@ -23,6 +22,7 @@ class ComposerStaticInit7695cd76f82104699a9d57924b5b3dd4
         'VendaPassagem\\Controllers\\VooController' => __DIR__ . '/../..' . '/Controllers/VooController.php',
         'VendaPassagem\\Core\\Controller' => __DIR__ . '/../..' . '/Core/Controller.php',
         'VendaPassagem\\Core\\Router' => __DIR__ . '/../..' . '/Core/Router.php',
+        'VendaPassagem\\DAO\\AeronaveDAO' => __DIR__ . '/../..' . '/DAO/AeronaveDAO.php',
         'VendaPassagem\\DAO\\Context' => __DIR__ . '/../..' . '/DAO/Context.php',
         'VendaPassagem\\DAO\\UsuarioDAO' => __DIR__ . '/../..' . '/DAO/UsuarioDAO.php',
         'VendaPassagem\\DAO\\VooDAO' => __DIR__ . '/../..' . '/DAO/VooDAO.php',

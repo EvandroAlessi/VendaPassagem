@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AeronaveDAO' => $baseDir . '/DAO/AeronaveDAO.php',
     'ComposerAutoloaderInit7695cd76f82104699a9d57924b5b3dd4' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit7695cd76f82104699a9d57924b5b3dd4' => $vendorDir . '/composer/autoload_static.php',
@@ -22,6 +21,7 @@ return array(
     'VendaPassagem\\Controllers\\VooController' => $baseDir . '/Controllers/VooController.php',
     'VendaPassagem\\Core\\Controller' => $baseDir . '/Core/Controller.php',
     'VendaPassagem\\Core\\Router' => $baseDir . '/Core/Router.php',
+    'VendaPassagem\\DAO\\AeronaveDAO' => $baseDir . '/DAO/AeronaveDAO.php',
     'VendaPassagem\\DAO\\Context' => $baseDir . '/DAO/Context.php',
     'VendaPassagem\\DAO\\UsuarioDAO' => $baseDir . '/DAO/UsuarioDAO.php',
     'VendaPassagem\\DAO\\VooDAO' => $baseDir . '/DAO/VooDAO.php',

@@ -8,8 +8,7 @@ class Voo {
     private $dataPartida;
     private $valorPassagem;
 
-    public function __construct($id, $aeronaveID, $dataPartida, $valorPassagem) {
-        $this->ID = $id;
+    public function __construct($aeronaveID, $dataPartida, $valorPassagem) {
         $this->aeronaveID = $aeronaveID;
         $this->dataPartida = $dataPartida;
         $this->valorPassagem = $valorPassagem;

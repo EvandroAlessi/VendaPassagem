@@ -1,9 +1,13 @@
 <?php 
+
+    namespace VendaPassagem\DAO;
+
     use VendaPassagem\DAO\Context;
     use VendaPassagem\Models\Aeronave;
     use PDO;
 
     class AeronaveDAO {
+
         public function popularAeronave($row){
             $aeronave = new Aeronave(
                 $row['ID'],

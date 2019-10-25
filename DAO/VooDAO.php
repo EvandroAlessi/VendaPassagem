@@ -8,11 +8,11 @@
     class VooDAO {
         public function popularVoo($row){
             $voo = new Voo(
-                $row['ID'],
                 $row['AeronaveID'],
                 $row['DataPartida'],
                 $row['ValorPassagem']
             );
+            $voo->setID($row['ID']);
             return $voo;
         }
 
@@ -41,8 +41,18 @@
             
             try {
                 $sql = "SELECT * FROM Voo WHERE ID = ${id};";
+
+                $result = $context->query($sql);
+
+                $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $voo = false;
+
+                if(count($lista) > 0){
+                    $voo = $this->popularVoo($lista[0]);
+                }
        
-                return $context->execute($sql, null);
+                return $voo;
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -64,10 +74,11 @@
                     )";
        
                 return $context->execute($sql, array(
-                    'dataPartida' => $voo['DataPartida'],
-                    'valorPassagem' => $voo['ValorPassagem'],
-                    'aeronaveID' => $voo['AeronaveID']
+                    'dataPartida' => $voo->getDataPartida(),
+                    'valorPassagem' => $voo->getvalorPassagem(),
+                    'aeronaveID' => $voo->getAeronaveID()
                 ));
+
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -77,7 +88,7 @@
             $context = new Context();
 
              try {
-                $sql = "UPDATE Voo SET DataPartida = ". $voo->getDataPartida() .", ValorPassagem = ". $voo->getValorPassagem() ." WHERE ID = ". $voo->getID() .";";
+                $sql = "UPDATE Voo SET DataPartida = '". $voo->getDataPartida() ."', ValorPassagem = ". $voo->getValorPassagem() ." WHERE ID = ". $voo->getID() .";";
        
                 return $context->execute($sql, null);
             } catch (Exception $e) {

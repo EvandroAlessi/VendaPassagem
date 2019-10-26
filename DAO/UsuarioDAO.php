@@ -44,9 +44,9 @@
                         Senha
                     )
                     VALUES (
-                        :nome,
-                        :email,
-                        :senha
+                        ':nome',
+                        ':email',
+                        ':senha'
                     )";
 
                 return $context->execute($sql, array(

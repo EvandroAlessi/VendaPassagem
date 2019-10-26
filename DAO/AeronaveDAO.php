@@ -93,7 +93,7 @@
             $context = new Context();
 
              try {
-                $sql = "UPDATE Aeronave SET DestinoID = '". $aeronave->getDestinoID() ."', Modelo = '". $aeronave->getModelo() ."', QndAssentos = '". $aeronave->setQntAssentos() ."', QndAssentosEspecial = '". $aeronave->getQntAssentosEspecial() ."' WHERE ID = ". $aeronave->getID() .";";
+                $sql = "UPDATE Aeronave SET DestinoID = '". $aeronave->getDestinoID() ."', Modelo = '". $aeronave->getModelo() ."', QntAssentos = '". $aeronave->getQntAssentos() ."', QntAssentosEspecial = '". $aeronave->getQntAssentosEspecial() ."' WHERE ID = ". $aeronave->getID() .";";
        
                 return $context->execute($sql, null);
             } catch (Exception $e) {

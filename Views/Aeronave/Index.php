@@ -81,7 +81,7 @@ $entidade) {?>
                     <td> 
                         <div class="form-group">
                             <label for="inputAddTitulo">Destino</label>
-                            <select  class="form-control" name="aeronaveID" value="<?=$entidade->getDestinoID()?>">                
+                            <select  class="form-control" name="destinoID" value="<?=$entidade->getDestinoID()?>">                
                                 <?php foreach($destinos as $destino){?>
                                     <option value="<?=$destino->getID();?>" <?=$entidade->getDestinoID() == $destino->getID()?'selected':''?>><?=$destino->getNomeAeroporto()?></option>
                                 <?php } ?>

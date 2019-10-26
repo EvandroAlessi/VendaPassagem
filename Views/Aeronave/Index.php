@@ -77,7 +77,7 @@ $entidade) {?>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form id="formAdicionar<?=$entidade->getID()?>" action="passageiros/edit/<?=$entidade->getID()?>" method="POST">
+                    <form id="formAdicionar<?=$entidade->getID()?>" action="aeronaves/edit/<?=$entidade->getID()?>" method="POST">
                     <td> 
                         <div class="form-group">
                             <label for="inputAddTitulo">Destino</label>

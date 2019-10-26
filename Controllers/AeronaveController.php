@@ -54,7 +54,7 @@ class AeronaveController extends Controller {
 
         $aeronave = $dao->buscar($id);
         $aeronave->setDestinoID($destinoID);
-        $aeronave->setModelop($modelo);
+        $aeronave->setModelo($modelo);
         $aeronave->setQntAssentos($qntAssentos);
         $aeronave->setQntAssentosEspecial($qntAssentosEspecial);
 

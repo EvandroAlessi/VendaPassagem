@@ -32,8 +32,8 @@
                     $sql = str_replace(":" . $key, $value, $sql);
                 }
             }
-            var_dump($data);
-            var_dump($sql);die();
+            // var_dump($data);
+            // var_dump($sql);die();
 
             $p_sql = self::getConnection()->prepare($sql);   
             return $p_sql->execute();

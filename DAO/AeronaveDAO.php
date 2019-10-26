@@ -9,7 +9,8 @@
     class AeronaveDAO {
 
         public function popularAeronave($row){
-            $aeronave = new Aeronave($row['DestinoID'],
+            $aeronave = new Aeronave(
+                $row['DestinoID'],
                 $row['Modelo'],
                 $row['QntAssentos'],
                 $row['QntAssentosEspecial']
@@ -71,17 +72,17 @@
                         QntAssentosEspecial
                     )
                     VALUES (
-                        :destinoID,
+                        ':destinoID',
                         ':modelo',
                         ':qtdAssentos',
-                        ':qtdAssentosEspecial'
+                        ':qntAssentosEspecial'
                     )";
 
                 return $context->execute($sql, array(
                     "destinoID" => $aeronave->getDestinoID(),
                     "modelo" => $aeronave->getModelo(),
                     "qtdAssentos" => $aeronave->getQntAssentos(),
-                    "qtdAssentosEspecial" => $aeronave->getQntAssentosEspecial()
+                    "qntAssentosEspecial" => $aeronave->getQntAssentosEspecial()
                 ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
@@ -92,7 +93,7 @@
             $context = new Context();
 
              try {
-                $sql = "UPDATE Aeronave SET DestinoID = ". $aeronave->getDestinoID() .", Modelo = ". $aeronave->getModelo() .", QndAssentos = ". $aeronave->getQndAssentos() .", QndAssentosEspecial = ". $aeronave->getQndAssentosEspecial() ." WHERE ID = ". $aeronave->getID() .";";
+                $sql = "UPDATE Aeronave SET DestinoID = '". $aeronave->getDestinoID() ."', Modelo = '". $aeronave->getModelo() ."', QndAssentos = '". $aeronave->setQntAssentos() ."', QndAssentosEspecial = '". $aeronave->getQntAssentosEspecial() ."' WHERE ID = ". $aeronave->getID() .";";
        
                 return $context->execute($sql, null);
             } catch (Exception $e) {

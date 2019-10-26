@@ -4,4 +4,4 @@
     
     
 ?>
-<img src="../../Resources/aviao.jpg" alt="Smiley face">
+<img src="Resources/aviao.jpg" alt="Smiley face">

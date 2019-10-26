@@ -6,8 +6,7 @@ class Destino {
     private $nomeAeroporto;
     private $taxaEmbarque;
 
-    public function __construct($id, $nomeAeroporto, $taxaEmbarque) {
-        $this->ID = $id;
+    public function __construct($nomeAeroporto, $taxaEmbarque) {
         $this->nomeAeroporto = $nomeAeroporto;
         $this->taxaEmbarque = $taxaEmbarque;
     }

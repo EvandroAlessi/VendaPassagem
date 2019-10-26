@@ -17,6 +17,7 @@
     <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="Content/plugins/dataTables/datatables.min.css" rel="stylesheet" type="text/css" />
     <link href="Content/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <link href="Content/plugins/footable/footable.core.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="wrapper" class="_Layout" style="background-color: #2f4050;">
@@ -47,5 +48,14 @@
     <script src="Scripts/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="Scripts/plugins/pace/pace.min.js"></script>
     <script src="Scripts/app/inspinia.js"></script>
+
+    <script src="Scripts/plugins/footable/footable.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.footable').footable();
+        });
+    </script>
 </body>
 </html>

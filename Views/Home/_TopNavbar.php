@@ -10,10 +10,10 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Bem vindo ao Web Report.</span>
+                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext" style="margin: 20px;">Bem vindo  <?=  $_SESSION["nome"] ?></span>
             </li>
-            <li>
-                <a href="login.php">
+            <li style="float: right;">
+                <a href="login">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li>

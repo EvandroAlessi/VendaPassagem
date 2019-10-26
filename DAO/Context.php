@@ -26,14 +26,16 @@
         }
 
         public static function execute($sql, $data){
-            $p_sql = self::getConnection()->prepare($sql);
 
-            if (!empty($data)) 
-                foreach ($data as $key => $value)
-                    $p_sql->bindValue(":" . $key, $value);
-                
-            
-   
+            if (!empty($data)){
+                foreach ($data as $key => $value){
+                    $sql = str_replace(":" . $key, $value, $sql);
+                }
+            }
+            var_dump($data);
+            var_dump($sql);die();
+
+            $p_sql = self::getConnection()->prepare($sql);   
             return $p_sql->execute();
         }
 

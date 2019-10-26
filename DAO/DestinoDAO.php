@@ -1,15 +1,20 @@
 <?php 
+
+    namespace VendaPassagem\DAO;
+
     use VendaPassagem\DAO\Context;
     use VendaPassagem\Models\Destino;
     use PDO;
 
     class DestinoDAO {
+
         public function popularDestino($row){
             $destino = new Destino(
-                $row['ID'],
                 $row['NomeAeroporto'],
                 $row['TaxaEmbarque']
             );
+
+            $destino->setID($row['ID']);
             return $destino;
         }
 
@@ -25,7 +30,7 @@
                 $f_lista = array();
         
                 foreach ($lista as $row)
-                    $f_lista[] = $this->popularDestino($row);
+                    $f_lista[$row['ID']] = $this->popularDestino($row);
 
                 return $f_lista;
             } catch (Exception $e) {
@@ -39,7 +44,17 @@
             try {
                 $sql = "SELECT * FROM Destino WHERE ID = ${id};";
        
-                return $context->execute($sql, null);
+                $result = $context->query($sql);
+
+                $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $destino = false;
+
+                if(count($lista) > 0){
+                    $destino = $this->popularDestino($lista[0]);
+                }
+       
+                return $destino;
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -54,13 +69,13 @@
                         TaxaEmbarque
                     )
                     VALUES (
-                        :nomeAeroporto,
-                        :taxaEmbarque
+                        ':nomeAeroporto',
+                        ':taxaEmbarque'
                     )";
                     
                 return $context->execute($sql, array(
-                    "nomeAeroporto", $destino->getNomeAeroporto(),
-                    "taxaEmbarque", $destino->getTaxaEmbarque()
+                    'nomeAeroporto' => $destino->getNomeAeroporto(),
+                    'taxaEmbarque' => $destino->getTaxaEmbarque()
                 ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";

@@ -9,13 +9,12 @@
     class AeronaveDAO {
 
         public function popularAeronave($row){
-            $aeronave = new Aeronave(
-                $row['ID'],
-                $row['DestinoID'],
+            $aeronave = new Aeronave($row['DestinoID'],
                 $row['Modelo'],
                 $row['QntAssentos'],
                 $row['QntAssentosEspecial']
             );
+            $aeronave->setID($row['ID']);
             return $aeronave;
         }
 
@@ -44,8 +43,18 @@
             
             try {
                 $sql = "SELECT * FROM Aeronave WHERE ID = ${id};";
+                
+                $result = $context->query($sql);
+
+                $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $aeronave = false;
+
+                if(count($lista) > 0){
+                    $aeronave = $this->popularAeronave($lista[0]);
+                }
        
-                return $context->execute($sql, null);
+                return $aeronave;
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -58,21 +67,21 @@
                 $sql = "INSERT INTO Aeronave (    
                         DestinoID,
                         Modelo,
-                        QndAssentos,
-                        QndAssentosEspecial
+                        QntAssentos,
+                        QntAssentosEspecial
                     )
                     VALUES (
                         :destinoID,
-                        :modelo,
-                        :qtdAssentos,
-                        :qtdAssentosEspecial
+                        ':modelo',
+                        ':qtdAssentos',
+                        ':qtdAssentosEspecial'
                     )";
-                    
+
                 return $context->execute($sql, array(
-                    "destinoID", $aeronave->getDestinoID(),
-                    "modelo", $aeronave->getModelo(),
-                    "qtdAssentos", $aeronave->getQtdAssentos(),
-                    "qtdAssentosEspecial", $aeronave->getQtdAssentosEspecial()
+                    "destinoID" => $aeronave->getDestinoID(),
+                    "modelo" => $aeronave->getModelo(),
+                    "qtdAssentos" => $aeronave->getQntAssentos(),
+                    "qtdAssentosEspecial" => $aeronave->getQntAssentosEspecial()
                 ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";

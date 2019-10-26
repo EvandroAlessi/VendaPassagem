@@ -12,24 +12,62 @@ class PassageiroController extends Controller {
 
         $dados['passageiros'] = $dao->buscarTodos();
 
-        $this->result("Voo", "Index", $dados);
+        $this->result("Passageiro", "Index", $dados);
     }
 
     function detailsAction(){
         
     }
 
-    function createAction(){
+    function createAction($request){
+        $dao = new PassageiroDAO();
+
+        $CPF = isset($request->data['CPF']) ? $request->data['CPF']  : '';
+        $RG = isset($request->data['RG']) ? $request->data['RG']  : '';
+        $nome = isset($request->data['nome']) ? $request->data['nome']  : '';
+        $dataNascimento = isset($request->data['dataNascimento']) ? $request->data['dataNascimento']  : '';
+
+        $dao->inserir(new Passageiro(
+            $CPF,
+            $RG,
+            $nome,
+            $dataNascimento
+        ));
+
+        $this->redirect('passageiros');
+    }
+
+    function editAction($request){
+
+        $dao = new PassageiroDAO();
+
+        $CPF = isset($request->data['CPF']) ? $request->data['CPF']  : '';
+        $RG = isset($request->data['RG']) ? $request->data['RG']  : '';
+        $nome = isset($request->data['nome']) ? $request->data['nome']  : '';
+        $dataNascimento = isset($request->data['dataNascimento']) ? $request->data['dataNascimento']  : '';
+        $id = $request->params['id'];
+
+        $passageiro = $dao->buscar($id);
+        $passageiro->setCPF($CPF);
+        $passageiro->setRG($RG);
+        $passageiro->setNome($nome);
+        $passageiro->setDataNascimento($dataNascimento);
+
+        $dao->editar($passageiro);
+
+        $this->redirect('passageiros');
 
     }
 
-    function editAction(){
+    function deleteAction($request){
 
-    }
+        $dao = new PassageiroDAO();
 
-    function deleteAction(){
+        $dao->excluir($request->params['id']);
+
+        $this->redirect('passageiros');
 
     }
 }
-
+        
 ?>

@@ -15,15 +15,20 @@ class AccountController extends Controller {
         $username = isset($request->data['username']) ? $request->data['username']  : '';
         $password = isset($request->data['password']) ? $request->data['password'] : '';
 
-        if ($dao->buscar($username, $password) > 1)
+        $nome = $dao->buscar($username, $password);
+        
+        if ($nome)
         {
             $_SESSION["logado"] = true;
+
+            $_SESSION["nome"] = $nome;
 
             $this->redirect("");
         }
         else
         {
             $_SESSION["logado"] = false;
+            $_SESSION["nome"] = "";
             $this->result("Account", "Login");
         }
     }

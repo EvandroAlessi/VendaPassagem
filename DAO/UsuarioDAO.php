@@ -11,12 +11,20 @@
             $context = new Context();
             
             try {
-                $sql = "SELECT * FROM Usuario WHERE Email = '${email}' AND Senha = '${senha}';";
+                $sql = "SELECT Nome FROM Usuario WHERE Email = '${email}' AND Senha = '${senha}';";
+                $result = $context->query($sql);
+
                 $result = $context->query($sql);
 
                 $lista = $result->fetchAll(PDO::FETCH_ASSOC);
 
-                return count($lista);
+                $nome = false;
+
+                if(count($lista) > 0){
+                    $nome = $lista[0]['Nome'];
+                }
+       
+                return $nome;
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

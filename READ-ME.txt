@@ -1,0 +1,8 @@
+1 - A pasta do projeto deve esta contida na raiz do servidor 
+e obrigatóriamente deve ter o nome de "venda-passagem";
+
+2 - Dentro da pasta do projeto existe um script de banco de dados com todas as tabelas 
+e também alguns inserts, o nome do arquivo é "Database.sql";
+
+3 - As configurações no tangente ao banco de dados podem ser alteradas na classe "Context"
+dentro da pasta "DAO", e configurações como nome da base, login e senha estão na linha 15 e 16 deste arquivo.

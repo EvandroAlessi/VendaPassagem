@@ -106,10 +106,12 @@ class Router {
                     break;
                 case "passageiros":
                     switch($params[1]){
-
+                        
                         case "":
                             $this->controller = "Passageiro";
                             $this->action = "Index";
+                            
+                            break;
                         case "details":
                             $this->controller = "Passageiro";
                             $this->action = "details";
@@ -118,7 +120,7 @@ class Router {
                         case "create":
                             $this->controller = "Passageiro";
                             $this->action = "Create";
-                        break;
+                            break;
                         case "edit":
                             $this->controller = "Passageiro";
                             $this->action = "Edit";

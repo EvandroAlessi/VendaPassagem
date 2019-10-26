@@ -12,22 +12,52 @@ class DestinoController extends Controller {
 
         $dados['destinos'] = $dao->buscarTodos();
 
-        $this->result("Voo", "Index", $dados);
+        $this->result("Destino", "Index", $dados);
     }
 
     function detailsAction(){
         
     }
 
-    function createAction(){
+    function createAction($request){
+        $dao = new DestinoDAO();
+
+        $taxaEmbarque = isset($request->data['taxaEmbarque']) ? $request->data['taxaEmbarque']  : '';
+        $nomeAeroporto = isset($request->data['nomeAeroporto']) ? $request->data['nomeAeroporto']  : '';
+
+        $dao->inserir(new Destino(
+            $nomeAeroporto,
+            $taxaEmbarque
+        ));
+
+        $this->redirect('destinos');
+    }
+
+    function editAction($request){
+
+        $dao = new DestinoDAO();
+
+        $taxaEmbarque = isset($request->data['taxaEmbarque']) ? $request->data['taxaEmbarque']  : '';
+        $nomeAeroporto = isset($request->data['nomeAeroporto']) ? $request->data['nomeAeroporto']  : '';
+        $id = $request->params['id'];
+
+        $destino = $dao->buscar($id);
+        $destino->setTaxaEmbarque($taxaEmbarque);
+        $destino->setNomeAeroporto($nomeAeroporto);
+
+        $dao->editar($destino);
+
+        $this->redirect('destinos');
 
     }
 
-    function editAction(){
+    function deleteAction($request){
 
-    }
+        $dao = new DestinoDAO();
 
-    function deleteAction(){
+        $dao->excluir($request->params['id']);
+
+        $this->redirect('destinos');
 
     }
 }

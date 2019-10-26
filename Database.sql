@@ -1,4 +1,4 @@
-CREATE DATABASE VendaPassagem;
+﻿CREATE DATABASE VendaPassagem;
 
 USE VendaPassagem;
 
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS PassageiroVoo (
         ON DELETE RESTRICT,
 	FOREIGN KEY fk_passageiro(PassageiroID)
 		REFERENCES 	Passageiro(ID)
-		ON UPDATE RESTRICT
-        ON DELETE RESTRICT
+		ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 INSERT INTO Destino(NomeAeroporto, TaxaEmbarque) 

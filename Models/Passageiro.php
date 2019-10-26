@@ -9,8 +9,7 @@ class Passageiro {
     private $nome;
     private $dataNascimento;
 
-    public function __construct($id, $CPF, $RG, $nome, $dataNascimento) {
-        $this->ID = $id;
+    public function __construct($CPF, $RG, $nome, $dataNascimento) {
         $this->CPF = $CPF;
         $this->RG = $RG;
         $this->nome = $nome;

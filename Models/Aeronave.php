@@ -9,8 +9,7 @@ class Aeronave {
     private $qntAssentos;
     private $qntAssentosEspecial;
 
-    public function __construct($id, $destinoID, $modelo, $qntAssentos, $qntAssentosEspecial) {
-        $this->ID = $id;
+    public function __construct($destinoID, $modelo, $qntAssentos, $qntAssentosEspecial) {
         $this->destinoID = $destinoID;
         $this->modelo = $modelo;
         $this->qntAssentos = $qntAssentos;

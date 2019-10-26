@@ -1,4 +1,6 @@
 <?php 
+    namespace VendaPassagem\DAO;
+
     use VendaPassagem\DAO\Context;
     use VendaPassagem\Models\Passageiro;
     use PDO;
@@ -6,12 +8,12 @@
     class PassageiroDAO {
         public function popularPassageiro($row){
             $passageiro = new Passageiro(
-                $row['ID'],
                 $row['CPF'],
                 $row['RG'],
                 $row['Nome'],
                 $row['DataNascimento']
             );
+            $passageiro->setID($row['ID']);
             return $passageiro;
         }
 
@@ -41,7 +43,17 @@
             try {
                 $sql = "SELECT * FROM Passageiro WHERE ID = ${id};";
        
-                return $context->execute($sql, null);
+                $result = $context->query($sql);
+
+                $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $passageiro = false;
+
+                if(count($lista) > 0){
+                    $passageiro = $this->popularPassageiro($lista[0]);
+                }
+                
+                return $passageiro;
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }
@@ -50,6 +62,7 @@
         public function inserir(Passageiro $passageiro) {
             $context = new Context();
 
+            
             try {
                 $sql = "INSERT INTO Passageiro (    
                         CPF,
@@ -58,17 +71,17 @@
                         DataNascimento
                     )
                     VALUES (
-                        :cpf,
-                        :rg,
-                        :nome,
-                        :dataNascimento
+                        ':cpf',
+                        ':rg',
+                        ':nome',
+                        '" . $passageiro->getDataNascimento() . "'
                     )";
        
                 return $context->execute($sql, array(
-                    "cpf", $passageiro->getCPF(),
-                    "rg", $passageiro->getRG(),
-                    "nome", $passageiro->getNome(),
-                    "dataNascimento", $passageiro->getDataNascimento()
+                    "cpf" => $passageiro->getCPF(),
+                    "rg" => $passageiro->getRG(),
+                    "nome" => $passageiro->getNome(),
+                    "dataNascimento" => $passageiro->getDataNascimento()
                 ));
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
@@ -79,7 +92,7 @@
             $context = new Context();
 
              try {
-                $sql = "UPDATE Passageiro SET CPF = ". $passageiro->getCPF() .", RG = ". $passageiro->getRG() .", Nome = ". $passageiro->getNome() .", DataNascimento = ". $passageiro->getDataNascimento() ." WHERE ID = ". $passageiro->getID() .";";
+                $sql = "UPDATE Passageiro SET CPF = '". $passageiro->getCPF() ."', RG = '". $passageiro->getRG() ."', Nome = '". $passageiro->getNome() ."', DataNascimento = '". $passageiro->getDataNascimento() ."' WHERE ID = '". $passageiro->getID() ."';";
        
                 return $context->execute($sql, null);
             } catch (Exception $e) {

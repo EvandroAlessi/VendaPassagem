@@ -1,4 +1,6 @@
 <?php 
+    namespace VendaPassagem\DAO;
+    
     use VendaPassagem\DAO\Context;
     use VendaPassagem\Models\PassageiroVoo;
     use PDO;
@@ -43,7 +45,17 @@
             try {
                 $sql = "SELECT * FROM PassageiroVoo WHERE ID = ${id};";
        
-                return $context->execute($sql, null);
+                $result = $context->query($sql);
+
+                $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $passageiroVoo = false;
+
+                if(count($lista) > 0){
+                    $passageiroVoo = $this->popularPassageiroVoo($lista[0]);
+                }
+                
+                return $passageiroVoo;
             } catch (Exception $e) {
                 print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde.";
             }

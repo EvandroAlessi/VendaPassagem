@@ -1,0 +1,13 @@
+# Sistema Gestão de Vendas de Passagens Aéreas
+# Autores:	Evandro Alessi,
+#			Eric Ueta
+#
+# Utilizados:
+#		XAMPP Servidor Apache				
+# Para execução:
+#		Descompactar o projeto no diretório "htdocs" do XAMPP de sua máquina, caminho padrão: "C:\xampp\htdocs"
+#			Obs: A pasta raíz do projeto precisa obrigatoriamente ser chamada de "venda-passagem". 
+#		Inicializar a execução do servidor Apache.	
+#		Executar primeiramente o script SQL "Database.sql" para criação do schema antes da execução da aplicação.
+#			Obs: Configurações quanto ao Banco de Dados podem ser alteradas no código da Classe "Context", localizada na pasta "DAO" (base,login e senha localizados nas linhas 15 e 16)
+#		Executar aplicação no navegador no link "localhost"
